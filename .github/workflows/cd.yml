@@ -1,6 +1,8 @@
-git add .github/workflows/cd.ymlgit add .github/workflows/cd.ymlname: cd git commit -m "Debug secret" git push 
-origin main on: git commit -m "Debug secret" push:
-git push origin main    branches: [main]
+name: cd
+
+on:
+  push:
+    branches: [main]
 
 jobs:
   Deploy:
@@ -20,13 +22,7 @@ jobs:
 
       - name: Build prod
         run: scripts/buildprod.sh
-      - name: Check secret
-        run: |
-          if [ -z "${{ secrets.GCP_CREDENTIALS }}" ]; then
-            echo "SECRET IS EMPTY!"
-          else
-            echo "SECRET IS SET"
-          fi
+
       - name: Authenticate to GCP
         uses: google-github-actions/auth@v2
         with:
